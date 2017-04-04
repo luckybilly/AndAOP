@@ -1,0 +1,65 @@
+apply plugin: 'groovy'
+apply plugin: 'maven'
+
+dependencies {
+    compile gradleApi()
+    compile localGroovy()
+}
+
+repositories {
+    mavenCentral()
+}
+dependencies {
+    compile 'com.android.tools.build:gradle:2.3.0'
+}
+
+//加载本地maven私服配置（在工程根目录中的local.properties文件中进行配置）
+Properties properties = new Properties()
+properties.load(project.rootProject.file('local.properties').newDataInputStream())
+def artifactory_user = properties.getProperty("artifactory_user")
+def artifactory_password = properties.getProperty("artifactory_password")
+def artifactory_contextUrl = properties.getProperty("artifactory_contextUrl")
+def artifactory_snapshot_repoKey = properties.getProperty("artifactory_snapshot_repoKey")
+def artifactory_release_repoKey = properties.getProperty("artifactory_release_repoKey")
+
+def maven_type_snapshot = true
+def version='1.0.1'
+def groupId = 'com.billy.aop'
+def artifactId = 'and-aop'
+def debug_flag = true
+
+task sourcesJar(type: Jar) {
+    from project.file('src/main/groovy')
+    classifier = 'sources'
+}
+
+artifacts {
+    archives sourcesJar
+}
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            //deploy到maven仓库
+            if (debug_flag) {
+                repository(url: uri('../repo-aop')) //deploy到本地仓库
+            } else {//deploy到maven私服中
+                def repoKey = maven_type_snapshot ? artifactory_snapshot_repoKey : artifactory_release_repoKey
+                repository(url: "${artifactory_contextUrl}/${repoKey}") {
+                    authentication(userName: artifactory_user, password: artifactory_password)
+                }
+            }
+            pom.groupId = groupId
+            pom.artifactId = artifactId
+            pom.version = version + (maven_type_snapshot ? '-SNAPSHOT' : '')
+
+            pom.project {
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+            }
+        }
+    }
+}

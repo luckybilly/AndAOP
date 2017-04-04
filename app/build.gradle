@@ -1,0 +1,55 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+    defaultConfig {
+        applicationId "com.billy.andaop"
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+dependencies {
+    compile 'com.android.support:appcompat-v7:25.3.0'
+    compile project(':lib_service')
+}
+
+buildscript {
+    repositories {
+        //deploy到本地目录时使用此仓库（便于修改测试）
+        maven {
+            url uri('../repo-aop')
+        }
+        //deploy到maven私服时使用此仓库
+//        maven{ url "http://192.168.199.119:8080/artifactory/libs-snapshot-local" }
+//        maven{ url "http://192.168.199.119:8080/artifactory/libs-release-local" }
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.billy.aop:and-aop:1.0.1-SNAPSHOT'
+    }
+}
+apply plugin: 'and-aop'
+
+andAop {
+    aopClass = 'com.billy.andaop.Aop'
+    methodStart = 'beforeStart'
+    methodEnd = 'afterEnd'
+    include = [//正则表达式
+            'com/billy/andaop/.*'
+            , 'com/billy/lib/service/[^/]*'
+    ]
+    exclude = [//正则表达式
+            'com/billy/andaop/TimeWatcher'
+//            ,'com/billy/andaop/Aop'   //插件会将aopClass自动添加到排除项，无需手动添加
+    ]
+}
