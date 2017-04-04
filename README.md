@@ -1,6 +1,8 @@
-#android 中进行AOP编程
+android 中进行AOP编程
+===
 
-##简介
+简介
+---
 
 AndAOP是一个提供在android中进行AOP编程的gradle插件。
 
@@ -13,14 +15,15 @@ module介绍：
 - app： AndAOP插件测试（主程序）
 - lib_service: AndAOP插件测试（lib module程序）
 
-##使用方式
+使用方式
+---
 基本用法可以参考app/src/main/java/com/billy/andaop/Aop类来实现
 高级用法可以在此基础上实现更多功能
 
 - 在需要aop的app module的build.gradle中添加buildscript，并apply aop插件
 - 配置aop信息
-    
-    
+
+    <pre>
     aopClass: 用来处理aop逻辑的类
     methodStart: aopClass中的静态方法，通过asm将aopClass.methodStart(str, str, str)插入到方法的开始
         methodStart方法必须接收3个参数：类名，方法名，方法参数列表及返回值类型
@@ -28,7 +31,8 @@ module介绍：
     methodEnd: aopClass中的静态方法，通过asm将aopClass.methodEnd(aop)插入到方法的所有return和throw语句之前
     include: 正则表达式，符合条件的类会被asm注入aop代码，（类的包分隔符使用'/'而不是'.'）
     exclude: 同include，符合条件的类会从include中排除 (默认排除了BuildConfig,R及R$...)
-        
+    </pre>
+	
  例子：
         
     buildscript {
@@ -58,7 +62,8 @@ module介绍：
 
 
 
-##实现原理
+实现原理
+---
 
 从Gradle1.5开始，包含了Transform API，
 允许第三方插件在class文件转为为dex文件前操作编译好的class文件
@@ -81,7 +86,8 @@ module介绍：
 - 修改后的class作为 dex transform 的input
 - 于是就完成了字节码层面的AOP
 
-##适用范围
+适用范围
+---
 可以对所有打包到dex文件中的java代码进行AOP（不包括C/C++代码）
 
 - 当前app module中的代码
@@ -91,7 +97,8 @@ module介绍：
 
 
 
-##参考资料
+参考资料
+---
 
 - [如何使用Android Studio开发Gradle插件](http://blog.csdn.net/sbsujjbcy/article/details/50782830)        
 - [Android 热修复使用Gradle Plugin1.5改造Nuwa插件](http://blog.csdn.net/sbsujjbcy/article/details/50839263)
