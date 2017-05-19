@@ -37,12 +37,10 @@ module介绍：
         
     buildscript {
         repositories {
-            maven{ url "${artifactory_contextUrl}/${artifactory_snapshot_repoKey}" }
-            maven{ url "${artifactory_contextUrl}/${artifactory_release_repoKey}" }
             jcenter()
         }
         dependencies {
-            classpath 'com.billy.aop:and-aop:1.0.1-SNAPSHOT'
+            classpath 'com.billy.aop:aop:1.0.1'
         }
     }
     apply plugin: 'and-aop'
