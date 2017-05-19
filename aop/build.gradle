@@ -10,7 +10,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile 'com.android.tools.build:gradle:2.3.0'
+    compile 'com.android.tools.build:gradle:2.2.0'
 }
 
 //加载本地maven私服配置（在工程根目录中的local.properties文件中进行配置）

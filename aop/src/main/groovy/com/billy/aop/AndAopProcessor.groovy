@@ -69,7 +69,8 @@ class AndAopProcessor {
     //com/lib/xiwei/common/util/UiTools.class
     static boolean shouldProcessClass(String entryName) {
 //        println('classes:' + entryName)
-
+        if (entryName == null || !entryName.endsWith(".class"))
+            return false
         entryName = entryName.substring(0, entryName.lastIndexOf('.'))
         if (extension != null) {
             def list = extension.includePatterns

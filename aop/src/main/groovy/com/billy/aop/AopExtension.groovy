@@ -27,16 +27,16 @@ class AopExtension {
 
     @Override
     String toString() {
-        StringBuilder sb = new StringBuilder('andAop:{')
-        sb.append('\n\t').append('aopClass').append(':\'').append(aopClass).append('\'')
-        sb.append('\n\t').append('methodStart').append(':\'').append(methodStart).append('\'')
-        sb.append('\n\t').append('methodEnd').append(':\'').append(methodEnd).append('\'')
-        sb.append('\n\t').append('include').append(':').append('[')
+        StringBuilder sb = new StringBuilder('andAop {')
+        sb.append('\n\t').append('aopClass').append(' = \'').append(aopClass).append('\'')
+        sb.append('\n\t').append('methodStart').append(' = \'').append(methodStart).append('\'')
+        sb.append('\n\t').append('methodEnd').append(' = \'').append(methodEnd).append('\'')
+        sb.append('\n\t').append('include').append(' = ').append('[')
         include.each { i ->
             sb.append('\n\t\t\'').append(i).append('\'')
         }
         sb.append('\n\t]')
-        sb.append('\n\t').append('exclude').append(':').append('[')
+        sb.append('\n\t').append('exclude').append(' = ').append('[')
         exclude.each { i ->
             sb.append('\n\t\t\'').append(i).append('\'')
         }
