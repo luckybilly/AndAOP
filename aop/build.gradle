@@ -29,8 +29,8 @@ def maven_type_snapshot = true
 version='1.0.1'
 // 唯一包名，比如compile 'com.yanzhenjie:andserver:1.0.1'中的com.yanzhenjie就是这里配置的。
 group = 'com.billy.aop'
-def artifactId = 'and-aop'
-def debug_flag = true
+def artifactId = 'aop'
+def debug_flag = true //true: 发布到本地maven仓库， false： 发布到maven私服
 
 task sourcesJar(type: Jar) {
     from project.file('src/main/groovy')

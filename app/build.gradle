@@ -23,19 +23,40 @@ dependencies {
     compile project(':lib_service')
 }
 
-buildscript {
-    repositories {
-        //deploy到本地目录时使用此仓库（便于修改测试）
-        maven {
-            url uri('../repo-aop')
-        }
-        //deploy到maven私服时使用此仓库
+//本地测试
+//buildscript {
+//    repositories {
+//        //deploy到本地目录时使用此仓库（便于修改测试）
+//        maven {
+//            url uri('../repo-aop')
+//        }
+//        jcenter()
+//    }
+//    dependencies {
+//        classpath 'com.billy.aop:and-aop:1.0.1-SNAPSHOT' //本地测试时先执行 ./gradlew :aop:uploadArchives 进行发布
+//    }
+//}
+
+//maven私服测试
+//buildscript {
+//    repositories {
+//        //deploy到maven私服时使用此仓库
 //        maven{ url "http://192.168.199.119:8080/artifactory/libs-snapshot-local" }
 //        maven{ url "http://192.168.199.119:8080/artifactory/libs-release-local" }
+//        jcenter()
+//    }
+//    dependencies {
+//        classpath 'com.billy.aop:and-aop:1.0.1-SNAPSHOT' //本地测试时先执行 ./gradlew :aop:uploadArchives 进行发布
+//    }
+//}
+
+//默认使用开源的AndAop
+buildscript {
+    repositories {
         jcenter()
     }
     dependencies {
-        classpath 'com.billy.aop:and-aop:1.0.1-SNAPSHOT'
+        classpath 'com.billy.aop:aop:1.0.1'
     }
 }
 apply plugin: 'and-aop'
