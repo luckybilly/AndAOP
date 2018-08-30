@@ -40,7 +40,7 @@ module介绍：
             jcenter()
         }
         dependencies {
-            classpath 'com.billy.aop:aop:1.0.1'
+            classpath 'AndAOP:aop:1.0.1'
         }
     }
     apply plugin: 'and-aop'
